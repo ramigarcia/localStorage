@@ -1,0 +1,74 @@
+<!-- <script> -->
+  El localStorage existe globalmente <br>
+  si queremos guardar un elemento dentro de el basta con que pongamos LOCALSTORAGE.SETITEM <br>
+  <br>
+   <strong>Este recibe 2 parametros:</strong> <br>
+                            El primer parametro va a ser el nombre(key) de como lo queremos obtener <br>
+                            El segundo parametro va a ser el valor que le queremos dar al nombre(key) <br>
+  <br>
+  localStorage.setItem('pato', "lucas"); <br>
+
+  <!-- Local Storage guarda 2 strings -->
+  <br>
+  console.log(localStorage.getItem("pato")) <br>
+
+<!-- </script> -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalStorage</title>
+  <style>
+    #elemento {
+      padding: 10px;
+      border: 1px solid red;
+    }
+    #elemento > div{
+      border: 1px solid red;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="elemento"></div>
+</body>
+<script>
+  lista = [{
+    name: "Hector",
+    age: 34
+  },{
+    name: "Francisco",
+    age: 40
+  }];
+
+  // localStorage("lista", lista) <== esto esta mal porque el localStorage guarda 2 strings
+
+  // Para guardar la lista en el localStorage tengo que pasar la lista de formato JSON a un formato que si sea valido
+
+  // JSON.stringify recibe un objeto el cual convierte a string
+
+  localStorage.setItem("lista", JSON.stringify(lista)) // Esta es la manera correcta de hacerlo
+  // console.log(localStorage.getItem("lista"))
+  // Esto transforma el contenido de la variable LISTA a un strign incluyendo las llaves y corchetes
+
+  lista = JSON.parse(localStorage.getItem("lista"))
+  // .parse => sirve para pasar un String a su tipo de elemento ejemplo:
+  //                                                                      JSON.parse("{}"); //las llaves estan entre comillas, osea que son un string al pasarlo por el .parse pasa a ser un objeto como tal {}
+  //                                                                      JSON.parse("true"); // true
+  //                                                                      JSON.parse('"foo"'); // "foo"
+  //                                                                      JSON.parse('[1, 5, "false"]'); // [1, 5, "false"]
+  //                                                                      JSON.parse("null"); // null
+  console.log(typeof(lista)) // typeof() => para saber que tipo de dato es
+  
+
+  lista.forEach(element => {
+    let elements = document.getElementById('elemento')
+    let div = document.createElement("div")
+    div.innerHTML = element.name + " " + element.age
+    elements.appendChild(div)
+  });
+
+</script>
+</html>
